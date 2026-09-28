@@ -276,8 +276,6 @@ ssh deploy@195.19.209.216 'cd /var/www/perpet && RAILS_ENV=production SEED=artic
 | --- | --- |
 | Макет в Figma | https://www.figma.com/design/1VbQrzm59qs3EDvQHkTvEx/Untitled?node-id=566-69&p=f |
 | Перенос макета в Claude Design | https://claude.ai/design/p/a744067b-7109-41f0-85ff-a5d8bb0423f9 |
-| Пример работы: Rails | https://github.com/smnvkh/Aeterna |
-| Пример работы: мини-приложение | https://github.com/smnvkh/Aeterna-MiniApp |
 
 Копия макета лежит в `design/` (в репозиторий не попадает: 81 МБ).
 
@@ -303,6 +301,8 @@ ssh deploy@195.19.209.216 'cd /var/www/perpet && RAILS_ENV=production SEED=artic
   может не открыться, и тогда приложение не пришлёт `VKWebAppInit`.
 - Фото питомца из Claude Design скачивалось обрезанным (лимит 256 КБ), поэтому взято
   из исходного файла Figma и сохранено в JPEG.
-#   p e r p e t 2 . 0  
- #   p e r p e t 2 . 0  
+#   p e r p e t 2 . 0 
+ 
+ #   p e r p e t 2 . 0 
+ 
  
