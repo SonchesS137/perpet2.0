@@ -15,7 +15,7 @@
 | --- | --- |
 | Сайт | https://perpet.xn--80akofbvesci4h.xn--p1ai (`perpet.маркетпульт.рф`) |
 | Мини-приложение | https://vk.ru/app54774841 |
-| Исходники | https://github.com/sergeychernyakov/perpet |
+
 
 ## Стек
 
