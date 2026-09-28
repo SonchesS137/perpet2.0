@@ -1,0 +1,710 @@
+/* Главная страница. */
+
+/* Обложка. В макете это одна картинка 1848×848, внутри которой всё выложено
+   в долях от ширины. Поэтому блок объявлен контейнером, а размеры считаются
+   в cqw — композиция одинаково собрана и на ноутбуке, и на большом мониторе. */
+
+.hero {
+  position: relative;
+  border-radius: clamp(20px, 2.706vw, 50px);
+  background: var(--lime);
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--line);
+  pointer-events: none;
+}
+
+.hero--wide {
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 1848 / 848;
+}
+
+.hero--wide img,
+.hero--wide .hero__eye {
+  position: absolute;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.hero__cat {
+  left: 4.369%;
+  top: 15.92%;
+  width: 20.797%;
+  aspect-ratio: 384.337 / 813.335;
+  animation: drift-left 1s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+
+.hero__paw {
+  left: 18.615%;
+  top: 61.91%;
+  width: 13.386%;
+  aspect-ratio: 247.362 / 478.295;
+  animation: zoom-in 1s cubic-bezier(0.22, 0.7, 0.2, 1) 0.18s both;
+}
+
+.hero__hand {
+  left: 92.995%;
+  top: 0.118%;
+  width: 20.68%;
+  aspect-ratio: 382.168 / 665.219;
+  transform: matrix(-0.881, 0.474, 0.474, 0.881, 0, 0);
+  animation: fly-in-right 1s cubic-bezier(0.22, 0.7, 0.2, 1) 0.1s both;
+}
+
+.hero__hand-back {
+  left: 87.537%;
+  top: 44.34%;
+  width: 15.195%;
+  aspect-ratio: 280.807 / 508.438;
+  transform: matrix(-0.757, 0.653, 0.653, 0.757, 0, 0);
+  animation: fly-in-right 1s cubic-bezier(0.22, 0.7, 0.2, 1) 0.22s both;
+}
+
+.hero__whisker {
+  top: 46.72%;
+  aspect-ratio: 125.763 / 2.466;
+  animation: appear 0.5s ease 0.55s both;
+}
+
+.hero__whisker--r1,
+.hero__whisker--r2,
+.hero__whisker--r3 { left: 20.784%; }
+
+.hero__whisker--l1,
+.hero__whisker--l2,
+.hero__whisker--l3 { left: 7.972%; }
+
+.hero__whisker--r1 { width: 6.805%; transform: matrix(0.981, -0.196, 0.196, 0.981, 0, 0); }
+.hero__whisker--r2 { width: 6.758%; transform: matrix(0.987, 0.158, -0.158, 0.987, 0, 0); }
+.hero__whisker--r3 { width: 6.805%; transform: matrix(0.902, 0.431, -0.431, 0.902, 0, 0); }
+.hero__whisker--l1 { width: 6.805%; transform: matrix(-0.981, -0.196, -0.196, 0.981, 0, 0); }
+.hero__whisker--l2 { width: 6.758%; transform: matrix(-0.987, 0.158, 0.158, 0.987, 0, 0); }
+.hero__whisker--l3 { width: 6.805%; transform: matrix(-0.902, 0.431, 0.431, 0.902, 0, 0); }
+
+.hero__eye {
+  width: 2.344%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.284cqw var(--cream);
+  animation: appear 0.5s ease 0.7s both;
+}
+
+.hero__eye--top { left: 89.488%; top: 41.435%; }
+.hero__eye--bottom { left: 85.881%; top: 47.716%; }
+
+.hero--wide .hero__body {
+  position: absolute;
+  left: 33.225%;
+  top: 11.321%;
+  width: 41.5%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqw;
+  animation: pop-in 0.9s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+
+.hero--wide .hero__title {
+  width: 51.767%;
+  font-size: 5.9418cqw;
+  line-height: 1;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--cream);
+}
+
+.hero--wide .hero__text {
+  width: 73.803%;
+  font-family: var(--font-hand);
+  font-size: max(11.7px, 0.9738cqw);
+  line-height: 1.3;
+  color: var(--gray);
+}
+
+.hero--wide .hero__text--right {
+  margin: 1.2cqw 0 0 auto;
+  width: 54.759%;
+  text-align: right;
+}
+
+.hero--wide .hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.406cqw;
+}
+
+/* Кружок со стрелкой и кнопка с подписью рядом — это одно и то же действие,
+   поэтому и отзываются они вместе: навёл на любую половину — светятся обе. */
+.hero__arrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: max(30px, 2.7cqw);
+  height: max(30px, 2.7cqw);
+  padding: 0;
+  border-radius: 50%;
+  border: 0.068cqw solid var(--line);
+  background: var(--cream);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hero__arrow:hover,
+.hero__arrow:has(+ .hero__cta:hover) {
+  background: var(--coral);
+  transform: scale(1.06);
+}
+
+.hero__arrow img {
+  position: static;
+  width: max(11px, 1.25cqw);
+  aspect-ratio: 19.244 / 17;
+}
+
+.hero__cta {
+  width: 39%;
+  height: max(30px, 2.7cqw);
+  border-radius: 1.65cqw;
+  border: 0.068cqw solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-hand);
+  font-size: max(10.8px, 0.954cqw);
+  color: var(--gray);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.hero__cta:hover,
+.hero__arrow:hover + .hero__cta {
+  background: var(--coral);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+/* Узкий экран: в макете обложка перестроена в колонку. */
+
+.hero--narrow {
+  display: none;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 22px;
+  border-radius: 28px;
+}
+
+.hero--narrow .hero__title {
+  font-size: clamp(50.4px, 13.5vw, 86.4px);
+  line-height: 0.96;
+  color: var(--ink);
+}
+
+.hero--narrow .hero__text {
+  font-family: var(--font-hand);
+  font-size: 15.3px;
+  line-height: 1.35;
+  color: var(--gray);
+}
+
+.hero__strip {
+  position: relative;
+  height: 240px;
+}
+
+.hero__strip img {
+  position: absolute;
+  width: auto;
+  pointer-events: none;
+}
+
+.hero__strip-cat {
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+.hero__strip-hand {
+  right: 4%;
+  top: 6%;
+  height: 84%;
+}
+
+.hero--narrow .btn {
+  min-height: 48px;
+  border-radius: 25px;
+  font-family: var(--font-hand);
+}
+
+@media (max-width: 860px) {
+  .hero--wide { display: none; }
+  .hero--narrow { display: flex; }
+}
+
+/* Почему нас выбирают */
+
+.why {
+  display: grid;
+  grid-template-columns: minmax(0, 820fr) minmax(0, 980fr);
+  gap: clamp(16px, 2.5vw, 48px);
+  scroll-margin-top: 110px;
+}
+
+.advantages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--gap);
+}
+
+.advantage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 96px;
+  padding: 22px clamp(22px, 2.4vw, 40px) 22px clamp(110px, 14vw, 260px);
+  border-radius: var(--radius-card);
+  background: var(--cream);
+  overflow: hidden;
+  transition: transform 0.25s, background 0.25s;
+  animation: rise 0.7s both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
+}
+
+.advantage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--line);
+  pointer-events: none;
+}
+
+.advantage:hover {
+  transform: scale(1.02);
+  background: var(--lime);
+}
+
+.advantage img {
+  position: absolute;
+  left: 4%;
+  top: 6%;
+  width: clamp(78px, 11vw, 200px);
+  pointer-events: none;
+}
+
+.advantage p {
+  font-family: var(--font-hand);
+  font-size: var(--text);
+  line-height: 1.25;
+  color: var(--gray);
+  text-align: right;
+}
+
+.stat {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: var(--lime);
+  overflow: hidden;
+  view-timeline-name: --stat;
+}
+
+.stat::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--line);
+  pointer-events: none;
+}
+
+/* Диаграмма из макета: две дольки-картинки, сдвинутые друг относительно друга. */
+.stat__plate {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 980 / 756;
+}
+
+.stat__title {
+  position: absolute;
+  left: 5.102%;
+  top: 5.556%;
+  font-size: 4.4082cqw;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--cream);
+}
+
+.stat__pie {
+  position: absolute;
+  width: 55.714%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  animation-timing-function: cubic-bezier(0.22, 0.7, 0.2, 1);
+  animation-fill-mode: both;
+  animation-timeline: --stat;
+  animation-range: entry 10% cover 40%;
+}
+
+.stat__pie--minor {
+  left: 7.653%;
+  top: 18.385%;
+  animation-name: wedge-in;
+  animation-duration: 1s;
+}
+
+.stat__pie--major {
+  left: 6.735%;
+  top: 21.429%;
+  animation-name: wedge-in-back;
+  animation-duration: 1s;
+}
+
+.stat__value {
+  position: absolute;
+  width: 10.714%;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.6738cqw;
+  line-height: 1;
+  text-align: right;
+  animation: pie-label 1s both;
+  animation-timeline: --stat;
+  animation-range: entry 10% cover 40%;
+}
+
+.stat__value--minor { left: 35.14%; top: 35%; color: var(--gray); }
+.stat__value--major { left: 24.25%; top: 71.74%; color: var(--gray); }
+
+.stat__leader {
+  position: absolute;
+  height: 0.102cqw;
+  background: var(--gray);
+}
+
+.stat__leader--minor { left: 49.796%; top: 36.243%; width: 12.679%; }
+.stat__leader--major { left: 44.182%; top: 72.619%; width: 19.188%; }
+
+.stat__note {
+  position: absolute;
+  left: 65.8%;
+  width: 29.2%;
+  font-family: var(--font-hand);
+  font-size: clamp(11.7px, 1.17vw, 18px);
+  line-height: 1.25;
+  color: var(--gray);
+}
+
+.stat__note--minor { top: 31%; }
+.stat__note--major { top: 67.499%; }
+
+/* Текстовый блок и промо-карточки */
+
+.note {
+  display: flex;
+  justify-content: flex-end;
+  padding: clamp(28px, 3vw, 48px) clamp(22px, 3.6vw, 68px);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--line);
+  background: var(--lime);
+  animation: rise 0.8s both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 60%;
+}
+
+.note p {
+  max-width: 100%;
+  font-family: var(--font-hand);
+  font-size: clamp(11.7px, 1.17vw, 18px);
+  line-height: 1.3;
+  color: var(--gray);
+  text-align: right;
+  text-wrap: balance;
+}
+
+/* В макете три карточки стоят в ряд — держим ряд до самого узкого экрана,
+   карточки внутри всё равно свёрстаны долями и ужимаются вместе с ним. */
+.promos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.5vw, 48px);
+}
+
+.promo,
+.step {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 584 / 529;
+  border-radius: clamp(24px, 2.706vw, 50px);
+  background: var(--cream);
+  overflow: hidden;
+  transition: background 0.25s, box-shadow 0.25s;
+  animation: zoom-in 0.7s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 45%;
+}
+
+.promo::after,
+.step::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 0.343cqw var(--line);
+  pointer-events: none;
+}
+
+.promo:hover,
+.step:hover {
+  background: var(--lime);
+  box-shadow: 10px 10px 0 var(--coral);
+}
+
+.promo__art {
+  position: absolute;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.promo__body {
+  position: absolute;
+  top: 6.371%;
+  bottom: 4%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.429cqw;
+}
+
+.promo__title {
+  font-size: 5.5539cqw;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.promo__text {
+  font-family: var(--font-hand);
+  font-size: clamp(11.7px, 1.17vw, 18px);
+  line-height: 1.3;
+  color: var(--gray);
+}
+
+.promo__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.372cqw;
+  margin-top: auto;
+}
+
+.promo__arrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: max(30px, 7.2cqw);
+  height: max(30px, 7.2cqw);
+  padding: 0;
+  border-radius: 50%;
+  border: 0.171cqw solid var(--line);
+  background: var(--cream);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.promo__arrow:hover,
+.promo__arrow:has(+ .promo__cta:hover) {
+  background: var(--coral);
+  transform: scale(1.06);
+}
+
+.promo__arrow img {
+  width: max(11px, 3.3cqw);
+  aspect-ratio: 19.244 / 17;
+  pointer-events: none;
+}
+
+.promo__cta {
+  display: inline-flex;
+  flex: none;
+  width: 55%;
+  align-items: center;
+  justify-content: center;
+  height: max(30px, 7.2cqw);
+  border-radius: 4.286cqw;
+  border: 0.171cqw solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-hand);
+  font-size: max(10.8px, 2.6694cqw);
+  color: var(--gray);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.promo__cta:hover,
+.promo__arrow:hover + .promo__cta {
+  background: var(--coral);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+/* Блок «ВАЖНО» */
+
+.important {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  min-height: 43.594cqw;
+  border-radius: clamp(20px, 2.706vw, 50px);
+  background: var(--lime);
+  overflow: hidden;
+  view-timeline-name: --important;
+}
+
+.important::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--line);
+  pointer-events: none;
+}
+
+.important__art {
+  position: absolute;
+  transform-origin: 0 0;
+  transform: matrix(-0.933, 0.36, 0.36, 0.933, 0, 0);
+  pointer-events: none;
+  animation: fly-in-right 1.2s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  animation-timeline: --important;
+  animation-range: entry 20% cover 35%;
+}
+
+.important__art--pink {
+  left: 86.916%;
+  top: -13.799cqw;
+  width: 59.801%;
+  aspect-ratio: 1105.123 / 1432.75;
+}
+
+.important__art--cream {
+  animation-delay: 0.12s;
+  left: 89.481%;
+  top: 7.63cqw;
+  width: 43.878%;
+  aspect-ratio: 810.854 / 1051.241;
+}
+
+.important__body {
+  position: relative;
+  margin: 2.273cqw 2.706% 2.9cqw;
+  width: 33.5%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqw;
+}
+
+.important__title {
+  font-size: 6.0003cqw;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.important__body p {
+  font-family: var(--font-body);
+  font-size: clamp(11.7px, 1.17vw, 18px);
+  line-height: 1.3;
+  color: var(--gray);
+}
+
+.important__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7cqw;
+  margin-top: 0.7cqw;
+}
+
+.important__download,
+.important__support {
+  width: 34.57%;
+  font-family: var(--font-hand);
+  min-height: max(30px, 2.219cqw);
+  padding: 0;
+  border-radius: 1.353cqw;
+  border-width: 0.054cqw;
+  font-size: max(10.8px, 0.8424cqw);
+}
+
+.important__download { background: var(--lime); }
+
+.important__arrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: max(30px, 2.219cqw);
+  height: max(30px, 2.219cqw);
+  border-radius: 50%;
+  border: 0.054cqw solid var(--line);
+  background: var(--cream);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.important__arrow:hover,
+.important__arrow:has(+ .important__support:hover) {
+  background: var(--coral);
+  transform: scale(1.06);
+}
+
+.important__arrow img {
+  width: max(11px, 1.041cqw);
+  aspect-ratio: 19.244 / 17;
+  pointer-events: none;
+}
+
+.important__arrow:hover + .important__support {
+  background: var(--coral);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+/* На узком экране проценты от ширины оставляют текст в колонке в два слова —
+   поэтому блок разворачивается в обычную колонку. */
+@media (max-width: 860px) {
+  .promos { grid-template-columns: 1fr; }
+
+  .important {
+    min-height: 0;
+    padding: 28px 22px 32px;
+  }
+
+  .important__art { display: none; }
+
+  .important__body {
+    margin: 0;
+    width: 100%;
+    gap: 18px;
+  }
+
+  .important__title { font-size: clamp(43.2px, 12.6vw, 86.4px); }
+
+  .important__actions { gap: 12px; }
+
+  .important__download,
+  .important__support {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 25px;
+    border-width: 1px;
+    font-size: 15.57px;
+  }
+
+  .important__arrow { display: none; }
+}

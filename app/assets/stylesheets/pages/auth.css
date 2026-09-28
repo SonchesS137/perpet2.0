@@ -1,0 +1,346 @@
+/* Вход, регистрация и восстановление пароля. */
+
+/* .main уже выставил flex-direction: column, поэтому по горизонтали
+   карточку центрирует align-items, а не justify-content. */
+.auth {
+  display: flex;
+  align-items: center;
+  padding-block: clamp(24px, 4vw, 64px);
+}
+
+.auth__card {
+  width: min(560px, 100%);
+  padding: clamp(28px, 3vw, 56px);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--line);
+  background: var(--cream);
+  animation: pop-in 0.5s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+
+.auth__title {
+  font-size: clamp(27px, 2.7vw, 43.2px);
+  line-height: 1.1;
+}
+
+.auth__lead {
+  margin: 14px 0 28px;
+  font-family: var(--font-mono);
+  font-size: 15.57px;
+  line-height: 1.4;
+}
+
+.auth__field {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.auth__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.auth__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+}
+
+.auth__remember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+}
+
+/* Регистрация и вход. В макете это салатовая плашка: заголовок и поля слева,
+   коралловая рука с белой лапой справа — обе выходят за край. Под ней вторая
+   плашка со ссылкой на соседний экран. */
+
+.reg {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1848 / 749;
+  min-height: 420px;
+  border-radius: clamp(24px, 2.604vw, 48px);
+  border: 2px solid var(--line);
+  background: var(--lime);
+  overflow: hidden;
+  animation: pop-in 0.8s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  animation-timeline: auto;
+}
+
+.reg--login { aspect-ratio: 1848 / 693; }
+
+.reg__hand,
+.reg__rabbit,
+.reg__eye {
+  position: absolute;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.reg__hand {
+  left: 89.935%;
+  top: 2.435cqw;
+  width: 39.183%;
+  aspect-ratio: 382.168 / 665.219;
+  transform: matrix(-0.9787, -0.2054, -0.2054, 0.9787, 0, 0);
+  animation: fly-in-right 1s cubic-bezier(0.22, 0.7, 0.2, 1) 0.1s both;
+}
+
+.reg__rabbit {
+  left: 53.734%;
+  top: 19.318cqw;
+  width: 17.94%;
+  aspect-ratio: 119.2 / 215.8;
+  transform: matrix(-0.9801, -0.1984, -0.1984, 0.9801, 0, 0);
+  animation: fly-in-right 1s cubic-bezier(0.22, 0.7, 0.2, 1) 0.22s both;
+}
+
+.reg--login .reg__rabbit { left: 52.381%; top: 15.963cqw; }
+
+.reg__eye {
+  width: 5.092%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.11cqw var(--white);
+  transform: matrix(0.7812, -0.6243, 0.6243, 0.7812, 0, 0);
+  animation: appear 0.6s ease 0.7s both;
+}
+
+.reg__eye--left { left: 50.162%; top: 24.73cqw; }
+.reg__eye--right { left: 60.931%; top: 24.73cqw; }
+
+.reg__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.597cqw;
+  padding: 2.273cqw 0 0 2.706%;
+  max-width: 62%;
+}
+
+.reg__title {
+  font-size: 6.926cqw;
+  line-height: 1;
+  color: var(--white);
+}
+
+.reg__form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.597cqw;
+  width: 19.589%;
+  min-width: 220px;
+}
+
+.reg__field {
+  width: 100%;
+  height: max(38px, 3.355cqw);
+  padding: 0 1.8cqw;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-hand);
+  font-size: max(12px, 1.082cqw);
+  color: var(--gray);
+  outline: none;
+}
+
+.reg__field::placeholder { color: var(--gray); opacity: 0.75; }
+
+.reg__field:focus-visible { border-color: var(--coral); }
+
+/* Кружок с рукой рядом с кнопкой — та же пара, что на остальных страницах:
+   нажимается любая половина, светятся обе. */
+.reg__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.812cqw;
+}
+
+.reg__arrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: max(34px, 2.219cqw);
+  height: max(34px, 2.219cqw);
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: var(--cream);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.reg__arrow img {
+  width: max(13px, 1.041cqw);
+  aspect-ratio: 19.244 / 17;
+  pointer-events: none;
+}
+
+.reg__arrow:hover,
+.reg__arrow:has(+ .reg__submit:hover),
+.reg__arrow:has(+ .reg__switch-btn:hover) {
+  background: var(--coral);
+  transform: scale(1.06);
+}
+
+.reg__arrow:hover + .reg__submit,
+.reg__arrow:hover + .reg__switch-btn {
+  background: var(--coral);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+.reg__submit {
+  width: 82.6%;
+  height: max(32px, 2.219cqw);
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-hand);
+  font-size: max(12px, 1.082cqw);
+  color: var(--gray);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.reg__submit:hover {
+  background: var(--coral);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+.reg__body .errors {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Вторая плашка: «Уже есть аккаунт?» и кнопка на соседний экран. */
+
+.reg__switch {
+  container-type: inline-size;
+  min-height: clamp(110px, 10.47vw, 201px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.949cqw;
+  padding: 2.273cqw 2.706%;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--line);
+}
+
+.reg__switch-text {
+  font-family: var(--font-hand);
+  font-size: max(12px, 1.082cqw);
+  color: var(--ink);
+}
+
+.reg__switch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16.18%;
+  min-width: 160px;
+  min-height: max(32px, 2.219cqw);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-hand);
+  font-size: max(12px, 1.082cqw);
+  color: var(--gray);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.reg__switch-btn:hover {
+  background: var(--coral);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+/* Вход через ВКонтакте и ссылки в макете не нарисованы — держим их
+   под блоком, чтобы не спорить с композицией. */
+.reg__aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+/* На узком экране блок разворачивается в обычную колонку. */
+@media (max-width: 860px) {
+  .reg,
+  .reg--login {
+    aspect-ratio: auto;
+    padding: 28px 22px 32px;
+  }
+
+  .reg__hand,
+  .reg__rabbit,
+  .reg__eye { display: none; }
+
+  .reg__body {
+    max-width: 100%;
+    padding: 0;
+    gap: 18px;
+  }
+
+  .reg__title { font-size: clamp(36px, 11vw, 64px); color: var(--ink); }
+
+  .reg__form {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .reg__field {
+    height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+  }
+
+  .reg__actions { gap: 10px; }
+
+  .reg__arrow {
+    width: 48px;
+    height: 48px;
+  }
+
+  .reg__arrow img { width: 18px; }
+
+  .reg__submit {
+    flex: 1;
+    width: auto;
+    height: 48px;
+    font-size: 15.57px;
+  }
+
+  .reg__switch { gap: 14px; padding: 22px; border-radius: 28px; }
+  .reg__switch-text { font-size: 15.3px; }
+  .reg__switch-btn { flex: 1; width: auto; min-height: 48px; font-size: 15.57px; }
+}
+
+.reg__remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: max(11px, 1.2cqw);
+  color: var(--gray);
+}
+
+@media (max-width: 860px) {
+  .reg__remember { font-size: 15px; }
+}

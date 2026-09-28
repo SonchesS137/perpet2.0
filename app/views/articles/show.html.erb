@@ -1,0 +1,24 @@
+<% content_for :title, "#{@article.title} — PERPET" %>
+<% content_for :description, @article.excerpt %>
+
+<%# В макете ниже последнего блока статьи ничего нет — сразу подвал. %>
+<main class="main">
+  <section class="banner">
+    <h1 class="banner__title"><%= @article.title %></h1>
+  </section>
+
+  <article class="reading">
+    <% @article.layout.each do |row| %>
+      <% case row[:kind] %>
+      <% when "section" %>
+        <section class="banner"><h2 class="banner__title"><%= row[:text] %></h2></section>
+      <% when "highlight" %>
+        <p class="reading__highlight"><%= row[:text] %></p>
+      <% when "row" %>
+        <%= render "articles/row", row: row %>
+      <% else %>
+        <%= render "articles/block", block: row %>
+      <% end %>
+    <% end %>
+  </article>
+</main>

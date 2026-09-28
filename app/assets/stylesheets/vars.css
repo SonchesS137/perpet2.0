@@ -1,0 +1,112 @@
+/* Токены дизайна PERPET: цвета, шрифты, размеры и анимации из макета. */
+
+:root {
+  /* Палитра макета: кремовый фон, коралловые акценты, салатовые подложки. */
+  --cream: #f8f3e0;
+  --coral: #ff8282;
+  --lime: #bce29b;
+  --ink: #000;
+  --gray: #434343;
+  --line: #434343;
+  --white: #fff;
+
+  --font-body: "Arsenal SC", Georgia, serif;
+  /* OvalCyr — шрифт макета, его нет в вебе; ближайший общедоступный — Nunito. */
+  --font-display: OvalCyr, Nunito, system-ui, sans-serif;
+  --font-mono: "Anonymous Pro", ui-monospace, monospace;
+  --font-hand: "Comic Relief", system-ui, sans-serif;
+  --font-ui: Inter, system-ui, sans-serif;
+
+  --radius-card: clamp(28px, 2.6vw, 50px);
+  --radius-card-sm: clamp(24px, 2.2vw, 44px);
+  --radius-pill: 50px;
+
+  --gutter: clamp(12px, 1.9vw, 36px);
+  --gap: clamp(14px, 2.5vw, 48px);
+  --pad-card: clamp(24px, 2.6vw, 50px);
+  --pad-banner: clamp(14px, 1.15vw, 22px) clamp(22px, 2.7vw, 52px);
+
+  --text: clamp(14.4px, 1.215vw, 21.6px);
+  --text-sm: clamp(14.4px, 1.08vw, 18px);
+  --title-xl: clamp(50.4px, 7.2vw, 110.7px);
+  --title-lg: clamp(28.8px, 3.6vw, 57.6px);
+  --title-md: clamp(23.4px, 2.7vw, 43.2px);
+  --title-sm: clamp(19.8px, 1.71vw, 27px);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.86); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes drift-left {
+  from { opacity: 0; transform: translateX(-56px) rotate(-5deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes drift-right {
+  from { opacity: 0; transform: translateX(56px) rotate(5deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Рисунки из макета выложены матрицей в transform, и обычная анимация
+   с кадром `transform: none` стирает саму раскладку. Поэтому они ездят
+   отдельными свойствами translate и rotate: те складываются с transform. */
+
+@keyframes fly-in-right {
+  from { opacity: 0; translate: 9% 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes fly-in-left {
+  from { opacity: 0; translate: -9% 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes fly-in-up {
+  from { opacity: 0; translate: 0 14%; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Дольки диаграммы разворачиваются вокруг центра — как прежняя развёртка. */
+@keyframes wedge-in {
+  from { opacity: 0; rotate: -26deg; }
+  to { opacity: 1; rotate: 0deg; }
+}
+
+@keyframes wedge-in-back {
+  from { opacity: 0; rotate: 18deg; }
+  to { opacity: 1; rotate: 0deg; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pie-label {
+  0%, 55% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Тень шапки анимацией не рисуется — оставляем её постоянной. */
+  .header { box-shadow: 0 8px 20px rgb(0 0 0 / 12%); }
+}

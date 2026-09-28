@@ -1,0 +1,514 @@
+/* Повторяющиеся блоки: карточки, кнопки, теги, формы, пагинация, модальное окно. */
+
+.card {
+  border-radius: var(--radius-card);
+  border: 2px solid var(--line);
+}
+
+.card--lime { background: var(--lime); }
+.card--coral { background: var(--coral); color: var(--ink); }
+.card--cream { background: var(--cream); }
+.card--bold { border-width: 4px; }
+.card--bolder { border-width: 5px; }
+
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: clamp(72px, 7.29vw, 140px);
+  padding: var(--pad-banner);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--line);
+  background: var(--coral);
+  color: var(--ink);
+  animation: rise 0.8s both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 55%;
+}
+
+.banner__title {
+  margin: 0;
+  font-size: clamp(16.2px, 3.33vw, 64px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.round-btn {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: clamp(110px, 10vw, 182px);
+  height: clamp(62px, 5.5vw, 98px);
+  border-radius: 60px;
+  border: 2px solid var(--line);
+  background: var(--cream);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.round-btn:hover {
+  background: var(--lime);
+  transform: translateY(3px);
+}
+
+.round-btn img {
+  width: clamp(30px, 2.6vw, 46px);
+  pointer-events: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: 25px;
+  border: 1px solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 15.57px;
+  color: var(--gray);
+  text-align: center;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+  background: var(--coral);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+.btn--wide { min-width: 250px; }
+
+.btn--coral {
+  background: var(--coral);
+  color: var(--ink);
+}
+
+.btn--coral:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.btn--lime:hover {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.tag {
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--lime);
+  font-family: var(--font-mono);
+  font-size: 12.6px;
+  color: var(--ink);
+}
+
+.tag--cream { background: var(--cream); }
+
+.tag--outline {
+  padding: 8px clamp(18px, 1.8vw, 30px);
+  border: 2px solid var(--line);
+  background: none;
+  font-family: var(--font-hand);
+  font-size: clamp(11.7px, 1.17vw, 18px);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap);
+}
+
+.grid--cards {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: clamp(16px, 1.8vw, 32px);
+  scroll-margin-top: 110px;
+}
+
+.grid--wide {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(16px, 2.5vw, 48px);
+}
+
+/* Формы */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.form__input,
+.form__textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 25px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-family: var(--font-hand), var(--font-body);
+  font-size: 18px;
+  outline: none;
+}
+
+.form__textarea {
+  height: auto;
+  padding: 16px 20px;
+  border-radius: 24px;
+  line-height: 1.35;
+  resize: vertical;
+}
+
+.form__hint {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.6px;
+  color: var(--gray);
+}
+
+.form__error {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14.4px;
+  color: var(--gray);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 15.3px;
+  color: var(--ink);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.chip--filter {
+  height: 56px;
+  padding: 0 clamp(16px, 1.6vw, 28px);
+  font-size: clamp(11.7px, 1.17vw, 18px);
+}
+
+.chip:hover {
+  background: var(--lime);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+.chip--current,
+.chip--current:hover,
+.chip:has(input:checked) {
+  background: var(--coral);
+  color: var(--ink);
+  transform: none;
+}
+
+/* Обёртка button_to не должна ломать сетку. */
+.contents {
+  display: contents;
+}
+
+/* Каскад: соседи в строке появляются со сдвигом, как в макете. */
+.ad:nth-child(3n + 2),
+.article:nth-child(3n + 2),
+.channel:nth-child(3n + 2),
+.promo:nth-child(3n + 2),
+.step:nth-child(3n + 2),
+.my-ad:nth-child(3n + 2) {
+  animation-range: entry 7% entry 52%;
+}
+
+.ad:nth-child(3n),
+.article:nth-child(3n),
+.channel:nth-child(3n),
+.promo:nth-child(3n),
+.step:nth-child(3n),
+.my-ad:nth-child(3n) {
+  animation-range: entry 14% entry 59%;
+}
+
+/* Пагинация */
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: clamp(16px, 1.6vw, 24px);
+  border-radius: var(--radius-card-sm);
+  border: 2px solid var(--line);
+  background: var(--cream);
+}
+
+.pager__step {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 15.57px;
+  color: var(--ink);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.pager__step:hover {
+  background: var(--lime);
+  color: var(--ink);
+  transform: scale(1.03);
+}
+
+.pager__step--off {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.pager__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: var(--cream);
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.pager__page:hover {
+  background: var(--lime);
+  color: var(--ink);
+  transform: scale(1.08);
+}
+
+.pager__page--current,
+.pager__page--current:hover {
+  background: var(--coral);
+  color: var(--ink);
+  transform: none;
+}
+
+.pager__label {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--gray);
+}
+
+/* Модальное окно заявки */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(0 0 0 / 45%);
+  overflow: auto;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal__dialog {
+  position: relative;
+  width: min(620px, 100%);
+  padding: clamp(28px, 3vw, 48px) clamp(24px, 3vw, 56px);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--line);
+  background: var(--cream);
+  animation: pop-in 0.32s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+
+.modal__close {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  font-size: 18px;
+  transition: background 0.2s;
+}
+
+.modal__close:hover {
+  background: var(--lime);
+}
+
+.modal__title {
+  max-width: 440px;
+  font-size: clamp(27px, 2.7vw, 43.2px);
+  line-height: 1.1;
+}
+
+.modal__note {
+  margin: 14px 0 28px;
+  font-family: var(--font-mono);
+  font-size: 15.57px;
+  line-height: 1.4;
+}
+
+.modal__field {
+  display: block;
+  margin-bottom: 18px;
+}
+
+/* Список ошибок валидации: формы Devise и админки. */
+.errors {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  border-radius: clamp(20px, 1.8vw, 28px);
+  border: 2px solid var(--line);
+  background: var(--lime);
+}
+
+.errors__title {
+  margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-size: 16.2px;
+}
+
+.errors ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14.4px;
+}
+
+.field_with_errors {
+  display: contents;
+}
+
+.field_with_errors input {
+  border-color: var(--coral);
+}
+
+/* Браузеры без animation-timeline (Safari на iOS младше 26): анимации ждут,
+   пока reveal_controller не пометит блок как попавший в экран. */
+.no-view-timeline .banner,
+.no-view-timeline .advantage,
+.no-view-timeline .note,
+.no-view-timeline .promo,
+.no-view-timeline .stat__pie,
+.no-view-timeline .stat__value,
+.no-view-timeline .benefit,
+.no-view-timeline .fact,
+.no-view-timeline .step,
+.no-view-timeline .benefits__title img,
+.no-view-timeline .problem__cat,
+.no-view-timeline .problem__cat-inner,
+.no-view-timeline .quote__paw,
+.no-view-timeline .quote__paw-cream,
+.no-view-timeline .important__art,
+.no-view-timeline .brand__facet,
+.no-view-timeline .brand__value,
+.no-view-timeline .ad,
+.no-view-timeline .article,
+.no-view-timeline .my-ad,
+.no-view-timeline .channel,
+.no-view-timeline .faq,
+.no-view-timeline .faq__item,
+.no-view-timeline .ticket {
+  animation-play-state: paused;
+}
+
+.no-view-timeline .in-view {
+  animation-play-state: running;
+}
+
+.no-view-timeline .header {
+  animation: none;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0%);
+  transition: box-shadow 0.25s;
+}
+
+.no-view-timeline .header.is-scrolled {
+  box-shadow: 0 8px 20px rgb(0 0 0 / 12%);
+}
+
+/* Кнопка входа через ВКонтакте: фирменный синий VK — он тут уместнее
+   бордового, человек ищет глазами знакомый цвет. */
+.btn--vk {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #07f;
+  color: #fff;
+}
+
+.btn--vk:hover {
+  background: #0062cc;
+  color: #fff;
+}
+
+.btn--vk__mark {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11.7px;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 22%);
+}
+
+/* Поле выбора фотографии */
+
+.photo-field__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.photo-field__preview {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-card-sm);
+  border: 2px solid var(--line);
+  object-fit: cover;
+  background: var(--lime);
+}
+
+.photo-field .btn {
+  cursor: pointer;
+}

@@ -1,0 +1,112 @@
+<% content_for :title, "Знакомство с нами — PERPET" %>
+
+<main class="main">
+  <section class="about__head">
+    <h1>Знакомство с нами</h1>
+  </section>
+
+  <section class="problem">
+    <%= image_tag "ab-cat-big.svg", alt: "", class: "problem__cat" %>
+    <%= image_tag "ab-cat-inner.svg", alt: "", class: "problem__cat-inner" %>
+
+    <div class="problem__body">
+      <h2 class="problem__title">Проблема</h2>
+      <p class="problem__text">
+        Сейчас людей, которые берут себе домой питомцев становится все больше. К сожалению, часто
+        несмотря на призыв ответственно подходить к вопросу в особенности в плане финансов может
+        не всегда выполняться. Это не должно стать проблемой ни для питомцев ни для их хозяев,
+        так как каждый из нас может попасть в трудную ситуацию, когда питомца приходится оставлять
+        на некоторое время (отьезд, командировка и прочее). А самое трудное — это организовать его
+        комфортное прибывание в чужих руках, не боясь финансовых трудностей.
+      </p>
+
+      <div class="problem__actions">
+        <%= modal_button "", css: "problem__arrow", title: "Присоединиться" do %>
+          <%= image_tag "shape-11.svg", alt: "" %>
+        <% end %>
+        <%= modal_button "Присоединиться", css: "problem__cta" %>
+      </div>
+    </div>
+  </section>
+
+  <div class="benefits">
+    <div class="benefits__title">
+      <%= image_tag "ab-paw-wide2.svg", alt: "" %>
+      <h2>Наши преимущества</h2>
+    </div>
+
+    <div class="benefits__list">
+      <% @benefits.each do |benefit| %>
+        <div class="benefit">
+          <%= image_tag benefit.icon, alt: "", style: "aspect-ratio: #{benefit.ratio};" %>
+          <p><%= benefit.text %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <section class="banner">
+    <h2 class="banner__title banner__title--long">Хотите знать больше о ценностях компании?</h2>
+    <a href="#stats" class="round-btn" title="К статистике">
+      <%= image_tag "shape-36.svg", alt: "" %>
+    </a>
+  </section>
+
+  <div class="why" id="stats">
+    <div class="stat">
+      <div class="stat__plate">
+        <h3 class="stat__title">Почему нас выбирают?</h3>
+        <%= image_tag "pie-pink.svg", alt: "", class: "stat__pie stat__pie--minor" %>
+        <%= image_tag "pie-cream.svg", alt: "", class: "stat__pie stat__pie--major" %>
+        <span class="stat__value stat__value--minor">37.2%</span>
+        <span class="stat__value stat__value--major">62.8%</span>
+        <span class="stat__leader stat__leader--minor"></span>
+        <span class="stat__leader stat__leader--major"></span>
+        <p class="stat__note stat__note--minor">
+          Столько людей не пользуются услугами передержки, но смогут начать с PERPET.
+        </p>
+        <p class="stat__note stat__note--major">
+          А столько уже пользуются, но всегда могут обратиться к PERPET в экстренный момент.
+        </p>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div class="fact">
+        <%= image_tag "shape-42.svg", alt: "", class: "fact__art fact__art--first" %>
+        <p class="fact__number">66%</p>
+        <p class="fact__text">Российских семей имеют хотя бы одного пушистого члена семьи.</p>
+      </div>
+
+      <div class="fact">
+        <%= image_tag "shape-43.svg", alt: "", class: "fact__art fact__art--second" %>
+        <p class="fact__number">93%</p>
+        <p class="fact__text">
+          Владельцев официально заявляют, что считают своего питомца полноценным членом семьи,
+          а не просто животным.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <section class="banner">
+    <h2 class="banner__title">Передержка с Perpet</h2>
+    <a href="#flow" class="round-btn" title="Как это работает">
+      <%= image_tag "shape-37.svg", alt: "" %>
+    </a>
+  </section>
+
+  <div class="flow" id="flow">
+    <% @steps.each do |step| %>
+      <%= render "pages/promo_card", promo: step, css: "promo step", justify: step.justify %>
+    <% end %>
+  </div>
+
+  <section class="quote">
+    <%= image_tag "ab-paw-wide.svg", alt: "", class: "quote__paw" %>
+    <%= image_tag "ab-paw-cream.svg", alt: "", class: "quote__paw-cream" %>
+    <span class="quote__eye quote__eye--top"></span>
+    <span class="quote__eye quote__eye--bottom"></span>
+    <p>Питомцы — наше отражение, которое должно быть передано в хорошие руки.</p>
+  </section>
+</main>

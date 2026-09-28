@@ -1,0 +1,36 @@
+<%# В макете статья — блок во всю ширину, соседние зеркальны: у нечётных
+    заголовок слева и кнопка справа, у чётных наоборот, фон через один,
+    и через один же из-за блока выглядывает кот.
+    Ссылкой карточка становится, только если у статьи есть текст. %>
+<article class="article <%= "article--mirror" if article_index.odd? %>">
+  <% if article_index.odd? %>
+    <div class="article__cat" aria-hidden="true">
+      <%= image_tag "hero-21.svg", alt: "", class: "article__cat-art" %>
+      <span class="article__whisker article__whisker--l1"></span>
+      <span class="article__whisker article__whisker--l2"></span>
+      <span class="article__whisker article__whisker--l3"></span>
+      <span class="article__whisker article__whisker--r1"></span>
+      <span class="article__whisker article__whisker--r2"></span>
+      <span class="article__whisker article__whisker--r3"></span>
+    </div>
+  <% end %>
+
+  <div class="article__top">
+    <h3 class="article__title">
+      <%= article.readable? ? link_to(article.title, article) : article.title %>
+    </h3>
+    <% if article.readable? %>
+      <%= link_to article, class: "article__arrow", title: "Читать «#{article.title}»" do %>
+        <%= image_tag "shape-11.svg", alt: "" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <p class="article__text"><%= article.excerpt %></p>
+
+  <div class="article__tags">
+    <% article.tag_list.each do |tag| %>
+      <span class="tag tag--outline"><%= tag %></span>
+    <% end %>
+  </div>
+</article>

@@ -1,0 +1,33 @@
+<% content_for :title, "Ваши питомцы — PERPET" %>
+
+<main class="main">
+  <section class="banner">
+    <h1 class="banner__title">Ваши питомцы</h1>
+  </section>
+
+  <% if @ads.any? %>
+    <div class="ads">
+      <% @ads.each do |ad| %>
+        <%= render "profiles/my_ad", ad: ad %>
+      <% end %>
+    </div>
+  <% else %>
+    <section class="oops">
+      <h2 class="oops__title">Упс!</h2>
+      <p class="oops__text">Вы еще не заполнили ни одну карточку питомца</p>
+    </section>
+  <% end %>
+
+  <div class="profile__cards">
+    <%= render "profiles/add_card", role: Ad::SITTER, title: "Добавь карточку ситтера" %>
+    <%= render "profiles/add_card", role: Ad::PET, title: "Добавь карточку питомца" %>
+
+    <p class="profile__note">
+      <span>
+        После заполнения профиля добавляйте карточки хозяина или питомца,
+        чтобы продолжать поддерживать питомцев и их хозяев.
+      </span>
+      <%= image_tag "vazhno-cream.svg", alt: "", class: "profile__note-paw" %>
+    </p>
+  </div>
+</main>

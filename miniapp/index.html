@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>PERPET — передержка питомцев</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="PERPET в VK: объявления о передержке, статьи, профиль питомца и поддержка.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&family=Arsenal+SC:wght@400;700&family=Nunito:wght@400..900&family=Comic+Relief&family=Inter:wght@100..900&display=swap">
+
+    <!-- Стили сайта один в один: их складывает build.js из app/assets/stylesheets. -->
+    <link rel="stylesheet" href="css/vars.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages/home.css">
+    <link rel="stylesheet" href="css/pages/ads.css">
+    <link rel="stylesheet" href="css/pages/articles.css">
+    <link rel="stylesheet" href="css/pages/about.css">
+    <link rel="stylesheet" href="css/pages/brand.css">
+    <link rel="stylesheet" href="css/pages/profile.css">
+    <link rel="stylesheet" href="css/pages/support.css">
+    <link rel="stylesheet" href="app.css">
+
+    <!-- Мост VK лежит рядом со своими файлами: сторонний CDN может не открыться,
+         и тогда приложение не пришлёт VKWebAppInit — VK покажет «App not detected». -->
+    <script src="vk-bridge.min.js"></script>
+  </head>
+
+  <body>
+    <div class="page">
+      <header class="header">
+        <button class="logo" type="button" data-route="home" title="На главную">
+          <img class="logo__shape" src="assets/tb-logo-hand.svg" alt="">
+          <img class="logo__ear" src="assets/tb-logo-ear.svg" alt="">
+          <span class="logo__eye logo__eye--left"></span>
+          <span class="logo__eye logo__eye--right"></span>
+          <span class="logo__name">PERPET</span>
+        </button>
+
+        <nav class="nav">
+          <button class="nav__link" type="button" data-route="articles">Статьи</button>
+          <button class="nav__link" type="button" data-route="ads">Обьявления</button>
+          <button class="nav__link" type="button" data-route="about">О нас</button>
+          <button class="nav__link" type="button" data-route="support">Поддержка</button>
+        </nav>
+
+        <button class="burger" type="button" id="burger" title="Меню" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <button class="icon-btn" type="button" data-route="profile" title="Профиль">
+          <img class="icon-btn__shape" src="assets/tb-profile-hand.svg" alt="">
+          <span class="icon-btn__eye icon-btn__eye--left"></span>
+          <span class="icon-btn__eye icon-btn__eye--right"></span>
+        </button>
+      </header>
+
+      <nav class="menu" id="menu" data-open="false">
+        <button class="menu__link" type="button" data-route="articles">Статьи</button>
+        <button class="menu__link" type="button" data-route="ads">Обьявления</button>
+        <button class="menu__link" type="button" data-route="about">О нас</button>
+        <button class="menu__link" type="button" data-route="brand">Brand book</button>
+        <button class="menu__link" type="button" data-route="support">Поддержка</button>
+        <button class="menu__link" type="button" data-route="profile">Профиль</button>
+      </nav>
+
+      <main class="main" id="screen" aria-live="polite"></main>
+
+      <footer class="footer">
+        <div class="footer__contacts">
+          <span>Наши контакты:</span>
+          <a href="tel:+79635747920">+7 963 574-79-20</a>
+          <a href="mailto:perpet@mail.ru">perpet@mail.ru</a>
+        </div>
+
+        <div class="footer__socials">
+          <a href="https://vk.ru/club241751525" target="_blank" rel="noreferrer" title="Сообщество ВКонтакте" class="footer__social">
+            <img src="assets/shape-21.svg" alt="VK" width="53" height="53">
+          </a>
+          <a href="https://t.me/+SQpDgc50YHBjNDFi" target="_blank" rel="noreferrer" title="Чат в Telegram" class="footer__social">
+            <img src="assets/shape-22.svg" alt="Telegram" width="59" height="59">
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="sheet" id="sheet" hidden>
+      <div class="sheet__card" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <button class="sheet__close" type="button" id="sheet-close" aria-label="Закрыть">✕</button>
+        <div id="sheet-body"></div>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

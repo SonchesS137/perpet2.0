@@ -1,0 +1,94 @@
+<%# Ряд из макета: плашка с заливкой, панель сбоку, рамки-колонки
+    или колонки с плашкой-заголовком сверху. %>
+<% columns = row[:columns] %>
+<% style = columns.first[:style] %>
+
+<% if style == "filled" %>
+  <% columns.each do |column| %>
+    <section class="reading__filled reading__filled--<%= column[:tone] %>">
+      <%# У зайца на салатовой плашке в макете ещё и пара глаз. %>
+      <%= article_art(column[:art]) %>
+      <% if column[:art] == "plus" %>
+        <span class="reading__eye reading__eye--a"></span>
+        <span class="reading__eye reading__eye--b"></span>
+      <% end %>
+      <h3 class="reading__filled-title"><%= column[:title] %></h3>
+      <% column[:blocks].each do |block| %>
+        <%= render "articles/block", block: block, bare: true %>
+      <% end %>
+    </section>
+  <% end %>
+<% elsif style == "aside" && columns.size == 1 %>
+  <% column = columns.first %>
+  <%# Панель салатовая — она справа, значит руки у пунктов слева, и наоборот.
+      В одних статьях в панели заголовок, в других — обычный текст, а иногда
+      внутри неё стоит ещё и первый абзац колонки. %>
+  <% side = column[:tone] == "lime" ? "left" : "right" %>
+  <% plain = column[:flags].include?("plain") %>
+  <% check = column[:flags].include?("check") %>
+  <% lead = column[:blocks].first if column[:flags].include?("lead") %>
+  <% blocks = lead ? column[:blocks].drop(1) : column[:blocks] %>
+  <div class="reading__row reading__row--split reading__row--<%= column[:tone] %>
+              <%= "reading__row--check" if check %>">
+    <div class="reading__panel reading__panel--<%= column[:tone] %> <%= "reading__panel--plain" if plain %>">
+      <%= image_tag column[:tone] == "lime" ? "cat-cream.svg" : "vazhno-cream.svg", alt: "",
+                    class: "reading__art reading__art--panel-#{column[:tone]}" %>
+      <%= content_tag plain ? :p : :h3, column[:title] %>
+      <% if lead %>
+        <p class="reading__panel-text"><%= lead[:text] %></p>
+      <% end %>
+    </div>
+
+    <div class="reading__col">
+      <% blocks.each do |block| %>
+        <%= render "articles/block", block: block, grid: check, badge: check,
+                   paw: (check ? nil : { tone: column[:tone], side: side }) %>
+      <% end %>
+    </div>
+  </div>
+<% elsif columns.size == 1 && columns.first[:layout] %>
+  <%# Заголовок плашкой слева, содержимое рядом — как «Для поездок по России».
+      У широкой плашки первый абзац стоит внутри неё же. %>
+  <% column = columns.first %>
+  <% lead = column[:blocks].first if column[:layout] == "side-lead" %>
+  <% blocks = lead ? column[:blocks].drop(1) : column[:blocks] %>
+  <div class="reading__row reading__row--<%= column[:layout] %>">
+    <div class="reading__panel reading__panel--lime">
+      <h3><%= column[:title] %></h3>
+      <% if lead %>
+        <p class="reading__panel-text"><%= lead[:text] %></p>
+      <% end %>
+    </div>
+
+    <div class="reading__col">
+      <% blocks.each do |block| %>
+        <%= render "articles/block", block: block %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="reading__row" style="--cols: <%= columns.size %>;">
+    <% columns.each do |column| %>
+      <% if column[:style] == "inline" %>
+        <div class="reading__frame">
+          <h3 class="reading__frame-title"><%= column[:title] %></h3>
+          <% column[:blocks].each do |block| %>
+            <%= render "articles/block", block: block, bare: true %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="reading__column">
+          <% if column[:title].present? %>
+            <h3 class="reading__panel reading__panel--lime"><span><%= column[:title] %></span></h3>
+          <% end %>
+
+          <div class="reading__col">
+            <% column[:blocks].each do |block| %>
+              <%= render "articles/block", block: block, badge: column[:title].present? %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

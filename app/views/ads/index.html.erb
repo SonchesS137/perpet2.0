@@ -1,0 +1,58 @@
+<% content_for :title, "Обьявления #{Ad::ROLES[@role]} — PERPET" %>
+
+<main class="main">
+  <section class="banner ads__head">
+    <h1 class="banner__title">Обьявления <%= Ad::ROLES[@role] %></h1>
+    <p class="ads__found">Найдено: <%= @pager.total %> из <%= @total %></p>
+  </section>
+
+  <%# Переключатель разделов из макета: две плашки со стрелкой внутрь. %>
+  <nav class="ads__switch">
+    <% Ad::ROLES.each_with_index do |(role, label), index| %>
+      <%= link_to ads_path(role: role),
+                  class: class_names("ads__tab", "ads__tab--right" => index.odd?),
+                  aria: { current: ("page" if role == @role) } do %>
+        <span class="ads__tab-arrow"><%= image_tag "shape-11.svg", alt: "" %></span>
+        <span class="ads__tab-label">Обьявления <%= label %></span>
+      <% end %>
+    <% end %>
+  </nav>
+
+  <%# Кнопки видов держатся вместе: на узком экране они переносятся всей
+      группой, а не последняя из них поодиночке. %>
+  <%= form_with url: ads_path, method: :get, data: { turbo_frame: "_top" }, class: "filters" do %>
+    <div class="filters__row">
+      <label class="search">
+        <span class="search__label">Поиск</span>
+        <%= text_field_tag :q, @query, class: "form__input search__input", placeholder: "кошка, Москва, июнь…" %>
+        <%= hidden_field_tag :role, @role %>
+        <%= hidden_field_tag :kind, @kind %>
+      </label>
+
+      <%= submit_tag "Найти", name: nil, class: "chip chip--filter chip--search", data: { disable_with: false } %>
+    </div>
+
+    <% if @role == Ad::PET %>
+      <div class="filters__kinds">
+        <% ([ Ad::ALL_KINDS ] + Ad::KINDS).each do |kind| %>
+          <%= link_to kind, ads_path(role: @role, kind: kind, q: @query.presence),
+                      class: class_names("chip", "chip--filter", "chip--current" => kind == @kind) %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="ads" id="ads-top">
+    <%= render partial: "ads/ad", collection: @ads, as: :ad %>
+  </div>
+
+  <%= render "shared/pager", pager: @pager, anchor: "ads-top" %>
+
+  <% if @ads.empty? %>
+    <section class="empty">
+      <h3 class="empty__title">Ничего не нашлось</h3>
+      <p>Попробуйте другой вид питомца или очистите поиск.</p>
+      <%= link_to "Сбросить фильтры", ads_path(role: @role), class: "btn" %>
+    </section>
+  <% end %>
+</main>

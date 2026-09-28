@@ -1,0 +1,34 @@
+<%# Внутри плашки с заливкой и рамки колонки текст идёт без своей рамки.
+    paw — рука сбоку у пунктов, badge — кружок со стрелкой в чек-листе.
+    Белой руки поверх цветной в макете нет: она там скрыта. %>
+<% bare = local_assigns.fetch(:bare, false) %>
+<% paw = local_assigns[:paw] %>
+<% badge = local_assigns.fetch(:badge, false) %>
+<% grid = local_assigns.fetch(:grid, false) %>
+<% art = block[:art] %>
+
+<% if block[:kind] == "list" %>
+  <div class="reading__pills <%= "reading__pills--grid" if grid %>"
+       style="--rows: <%= (block[:items].size / 2.0).ceil %>;">
+    <% block[:items].each_with_index do |item, index| %>
+      <p class="reading__pill <%= "reading__pill--paw reading__pill--paw-#{paw[:side]}" if paw %>">
+        <% if paw %>
+          <%= image_tag article_paw(paw[:tone], index), alt: "",
+                        class: "reading__pill-paw reading__pill-paw--#{index % 3 + 1}" %>
+        <% end %>
+        <span><%= item %></span>
+        <% if badge %>
+          <span class="reading__pill-badge"><%= image_tag "shape-11.svg", alt: "" %></span>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+<% elsif bare %>
+  <p class="reading__text"><%= block[:text] %></p>
+<% else %>
+  <p class="reading__plate <%= "reading__plate--lime" if block[:tone] == "lime" %>
+            <%= "reading__plate--#{art}" if art %>">
+    <%= article_art(art) %>
+    <span><%= block[:text] %></span>
+  </p>
+<% end %>

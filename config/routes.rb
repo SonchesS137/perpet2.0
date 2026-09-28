@@ -1,0 +1,51 @@
+Rails.application.routes.draw do
+  devise_for :users
+  root "pages#home"
+
+  # Вход и привязка ВКонтакте на сайте (VK ID).
+  get "auth/vk", to: "vk_auth#create", as: :auth_vk
+  get "auth/vk/callback", to: "vk_auth#callback", as: :auth_vk_callback
+
+  get "about", to: "pages#about", as: :about
+  get "brand", to: "pages#brand", as: :brand
+  get "support", to: "support#show", as: :support
+
+  resources :ads, only: %i[index new create edit update destroy]
+  resources :articles, only: %i[index show]
+  resources :support_tickets, only: %i[create]
+  resources :leads, only: %i[create]
+
+  resource :profile, only: %i[show edit update], controller: "profiles"
+  get "profile/pets", to: "profiles#pets", as: :profile_pets
+  get "profiles/:id", to: "public_profiles#show", as: :public_profile
+
+  namespace :admin do
+    root "dashboard#index"
+
+    resources :ads
+    resources :articles
+    resources :faq_items
+    resources :support_channels
+    resources :support_tickets, only: %i[index destroy]
+    resources :leads, only: %i[index destroy]
+  end
+
+  # API для мини-приложения VK.
+  namespace :api do
+    namespace :v1 do
+      resources :ads, only: %i[index show create update destroy] do
+        collection { get :mine }
+      end
+      resources :articles, only: %i[index show]
+      resources :leads, only: %i[create]
+      resources :support_tickets, only: %i[create]
+      resource :profile, only: %i[show update], controller: "profiles"
+      get "profiles/:id", to: "public_profiles#show", as: :public_profile
+      resource :support, only: %i[show], controller: "support"
+      resource :content, only: %i[show], controller: "content"
+    end
+  end
+
+  # Проверка живости приложения для мониторинга и балансировщиков.
+  get "up" => "rails/health#show", as: :rails_health_check
+end

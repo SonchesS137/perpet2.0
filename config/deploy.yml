@@ -1,0 +1,50 @@
+# Деплой на виртуалку Oracle Cloud Always Free через Kamal 2.
+# Порядок и значения полей описаны в DEPLOY.md.
+
+service: perpet
+image: sergeychernyakov/perpet
+
+# IP виртуальной машины Oracle Cloud.
+servers:
+  web:
+    - <SERVER_IP>
+
+# kamal-proxy сам получает сертификат Let's Encrypt для домена.
+proxy:
+  ssl: true
+  host: <DOMAIN>
+  healthcheck:
+    path: /up
+
+registry:
+  server: ghcr.io
+  username: sergeychernyakov
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
+  clear:
+    SOLID_QUEUE_IN_PUMA: true
+    WEB_CONCURRENCY: 2
+    RAILS_MAX_THREADS: 5
+
+# База SQLite и загрузки живут на диске сервера, а не внутри контейнера.
+volumes:
+  - "perpet_storage:/rails/storage"
+
+# Ampere A1 — это ARM, как и Apple Silicon: образ собирается локально без эмуляции.
+builder:
+  arch: arm64
+
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  seed: app exec "bin/rails db:seed"
+  migrate: app exec "bin/rails db:migrate"
+
+asset_path: /rails/public/assets
+
+retain_containers: 3

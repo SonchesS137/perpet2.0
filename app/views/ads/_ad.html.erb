@@ -1,0 +1,42 @@
+<%# Карточка из макета: слева фото, справа строки «Ключ: значение»,
+    кнопка на карточку хозяина и метки снизу. Белая лапа — фон под текстом. %>
+<article class="ad">
+  <%= image_tag "tb-logo-ear.svg", alt: "", class: "ad__paw" %>
+
+  <h3 class="ad__title"><%= ad.title %></h3>
+
+  <div class="ad__photo">
+    <% if ad.photo.attached? %>
+      <%= image_tag ad.photo_url, alt: ad.title, loading: "lazy" %>
+    <% else %>
+      <%= image_tag ad.icon_name, alt: "", class: "ad__icon" %>
+    <% end %>
+  </div>
+
+  <div class="ad__body">
+    <p class="ad__text">
+      <% ad.card_lines.each do |line| %>
+        <span><%= line %></span>
+      <% end %>
+    </p>
+
+    <%# В макете рядом с кнопкой стоит кружок с рукой — это одна кнопка. %>
+    <% if ad.profile %>
+      <%= link_to public_profile_path(ad.profile), class: "ad__owner" do %>
+        <span class="ad__owner-hand"><%= image_tag "shape-11.svg", alt: "" %></span>
+        <span class="ad__owner-label"><%= ad.owner_label %></span>
+      <% end %>
+    <% else %>
+      <%= modal_button kind: "respond", subject: ad.title, css: "ad__owner" do %>
+        <span class="ad__owner-hand"><%= image_tag "shape-11.svg", alt: "" %></span>
+        <span class="ad__owner-label">Откликнуться</span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="ad__tags">
+    <% ad.card_tags.each do |tag| %>
+      <span class="tag tag--outline"><%= tag %></span>
+    <% end %>
+  </div>
+</article>
